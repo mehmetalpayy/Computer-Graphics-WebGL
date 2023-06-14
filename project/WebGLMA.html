@@ -1,0 +1,248 @@
+<html>
+<head>
+	<style>
+		body{
+			margin:0 auto;
+			}
+		.first{   
+			float:left;
+			height:721px;
+			width:800px;
+			font-family:Times New Roman;
+			font-size:16px;
+		 }
+		.div1{
+			float:left;
+			position:relative;
+			height:30px;
+			margin-top:20px;
+			margin-left:30px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div2{
+			float:left;
+			position:relative;
+			margin-top:20px;
+			margin-left:30px;
+			height:30px;
+			width:200px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div3{
+			float:right;
+			position:relative;
+			margin-top:37px;
+			margin-right:80px;
+			height:20px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div4{
+			float:left;
+			position:relative;
+			margin-top:30px;
+			margin-left:30px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div5{
+			margin-top:10px;
+			margin-left:10px;
+			position:relative;
+			width:70px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div6{
+			margin-top:25px;
+			margin-left:10px;
+			position:relative;
+			width:70px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div7{
+			width:75px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div8{
+			margin-top:25px;
+			margin-left:10px;
+			position:relative;
+			width:140px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div9{
+			float:right;
+			margin-top:0px;
+			margin-left:12px;
+			position:relative;
+			width:140px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div10{
+			float:left;
+			position:relative;
+			margin-top:15px;
+			margin-left:30px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div11{
+			float:right;
+			margin-top:25px;
+			margin-left:12px;
+			position:relative;
+			width:140px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div12{
+			float:right;
+			margin-top:25px;
+			margin-left:10px;
+			position:relative;
+			width:140px;
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+		.div13{
+			font-family:Times New Roman;
+			font-size:18px;
+			}
+		.div14{
+			font-family:Times New Roman;
+			font-size:16px;
+			}
+	</style>
+</head>
+<body>
+   
+    
+	<canvas id="glcanvas" width="800" height="721" class = "first"></canvas>
+   
+    
+	
+	<button id = "DirectionButton" class="div2">
+	 <font color="green">
+      Change Rotation Direction </font>
+    </button>
+   
+    
+	
+	<button id = "StartRotation" class="div2"> 
+    <font color="green" >
+      StartRotation </font>
+    </button>
+   
+    
+	
+	<button id = "StopRotation" class="div2"> 
+    <font color="green">
+      StopRotation </font>
+    </button>
+ 
+    
+	
+	
+	<div class = "div1">
+		<br>
+	    <b><font color="red" size="4" class="div13">CHANGE THE COLOR :</font> </b>
+		<select name="colors" id="color" class="div14">
+			<option value="white"> WHITE </option>			
+			<option value="red">RED </option>
+			<option value="blue"> BLUE </option>
+			<option value="green"> GREEN </option>
+		</select> 
+
+		<button id="ColorButton" class="div7"><font color="purple">
+		Select </font>
+	   </button>
+	</div>
+   
+   
+   
+    <div  class = "div3">
+    Speed 0 <input id="slide" type="range"
+    min="0" max="1000" step="50" value="500"/>
+    1000 
+    </div>
+	
+	
+	
+	<div class="div4">
+		<br> <b> <font color="red" size="4" class="div13"> REPOSITION :</font> </b>
+	    <br> (on the x-axis)
+		<button id="xleft" class="div5" > <font color="purple" >LEFT</font></button>
+		<button id="xright" class="div5"><font color="purple" >RIGHT</font> </button>		
+	</div>
+	
+	
+	
+	<div class="div4">
+		<br>(on the y-axis)
+		<button id="yup" class="div6"><font color="purple" >UP</font></button>
+		<button id="ydown" class="div6"><font color="purple" >DOWN</font></button>		
+	</div>
+	
+	
+
+	<div class="div10">
+		<br> <b> <font color="red" size="4" class="div13"> CORNER POSITION :</font> </b>
+	    <br>(left-top, right-top, center)
+		<button id="lefttop" class="div8"> <font color="#E7530F" >LEFT-TOP</font></button>
+		<button id="center" class="div12"> <font color="#E7530F" >CENTER</font></button>
+		<button id="righttop" class="div11"><font color="#E7530F" >RIGHT-TOP</font> </button>
+	</div>
+	
+	
+	
+	<div class="div10">
+		<br>(left-bottom, right-bottom)
+		<button id="rightbottom" class="div9"><font color="#E7530F" >RIGHT-BOTTOM</font></button>
+		<button id="leftbottom" class="div9"><font color="#E7530F" >LEFT-BOTTOM</font></button>
+				
+	</div>
+	
+	
+		  
+</body>
+
+
+
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+   attribute vec4 vPosition;
+   uniform float theta;
+   void main(){ 
+			
+            gl_Position.x = cos(theta) * vPosition.x - sin(theta) * vPosition.y;
+            gl_Position.y = sin(theta) * vPosition.x + cos(theta) * vPosition.y;
+            gl_Position.z = 0.0;
+            gl_Position.w = 1.0;
+   }
+</script>
+
+
+
+<script id="fragment-shader" type="x-shader/x-fragment"> 
+   precision mediump float; 
+   uniform vec4 fColor;
+   void main() {
+      gl_FragColor= fColor;
+   }
+</script>
+
+
+
+<script src="../common/MV.js"></script>
+<script src="../common/initShaders.js"></script>
+<script src="WebGLMA.js"></script>
+<script src="../common/webgl-utils.js"></script>
+
+</html>
